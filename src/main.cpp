@@ -4,8 +4,8 @@
 
 #define INITIAL_HEIGHT 25
 #define INITIAL_LENGTH 100
-#define SCREEN_WIDTH 1080u
-#define SCREEN_HEIGHT 1920u
+#define SCREEN_WIDTH 720u
+#define SCREEN_HEIGHT 720u
 #define INITIAL_X (SCREEN_WIDTH / 2)
 #define INITIAL_Y (SCREEN_HEIGHT / 2)
 #define FOOD_HEIGHT 25
@@ -24,6 +24,7 @@ int main()
     sf::Vector2f initial_size(INITIAL_LENGTH, INITIAL_HEIGHT);
     sf::RectangleShape snake(initial_size);
     snake.setPosition(snake_pos);
+    
 
     sf::Vector2i directions[] = 
     {
@@ -33,15 +34,16 @@ int main()
         {0, -1} //down
     };
     int curr_dir = 0;
-    int snake_speed = 1;
+    int snake_speed = 4;
 
     srand(static_cast<unsigned>(time(0)));
     int food_x_pos = rand() % SCREEN_WIDTH;
-    int food_y_pos = rand() % SCREEN_HEIGHT;  // Fix: should use SCREEN_HEIGHT
+    int food_y_pos = rand() % SCREEN_HEIGHT; 
     sf::Vector2f food_pos(food_x_pos, food_y_pos);
     sf::Vector2f food_size(FOOD_LENGTH, FOOD_HEIGHT);
     sf::RectangleShape food(food_size);
     food.setPosition(food_pos);
+    
 
     while (window.isOpen())
     {
@@ -62,6 +64,17 @@ int main()
         snake_pos.x += directions[curr_dir].x * snake_speed;
         snake_pos.y += directions[curr_dir].y * snake_speed;
         snake.setPosition(snake_pos);
+
+        //Move Food if snake eats it
+        auto snake_food_intersect = snake.getGlobalBounds().findIntersection(food.getGlobalBounds());
+        if(snake_food_intersect)
+        {
+            food_x_pos = rand() % (SCREEN_WIDTH - 100);
+            food_y_pos = rand() % (SCREEN_HEIGHT - 100);
+            food_pos.x = food_x_pos;
+            food_pos.y = food_y_pos;
+            food.setPosition(food_pos);
+        }
 
         // Render everything
         window.clear();

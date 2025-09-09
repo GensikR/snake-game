@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run Snake",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/snake",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "preLaunchTask": "build snake",
+            "externalConsole": true,
+            "MIMode": "gdb"
+        }
+    ]
+}

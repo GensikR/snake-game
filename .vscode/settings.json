@@ -1,0 +1,8 @@
+{
+  "cmake.generator": "Unix Makefiles",
+  "cmake.buildDirectory": "${workspaceFolder}/build",
+  "cmake.configureArgs": [
+    "-DCMAKE_PREFIX_PATH=/usr/local"
+  ],
+  "cmake.sourceDirectory": "/home/gensik/Desktop/gh_projects/snake-game"
+}

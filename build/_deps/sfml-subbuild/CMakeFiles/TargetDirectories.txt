@@ -1,0 +1,3 @@
+/home/gensik/Desktop/gh_projects/snake-game/build/_deps/sfml-subbuild/CMakeFiles/sfml-populate.dir
+/home/gensik/Desktop/gh_projects/snake-game/build/_deps/sfml-subbuild/CMakeFiles/edit_cache.dir
+/home/gensik/Desktop/gh_projects/snake-game/build/_deps/sfml-subbuild/CMakeFiles/rebuild_cache.dir

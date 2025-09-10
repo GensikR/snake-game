@@ -1,6 +1,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <SFML/Graphics.hpp>
+#include <queue>
 
 #define INITIAL_HEIGHT 25
 #define INITIAL_LENGTH 100
@@ -14,6 +15,86 @@
 #define LEFT 1
 #define UP 3
 #define DOWN 2
+#define SNAKE_BODY_LENGHT 20
+#define SNAKE_BODY_HEIGHT 20
+
+
+class Snake
+{
+public:
+    struct SnakeBlock
+    {
+        sf::RectangleShape snake_rect;
+        sf::Vector2f block_pos;
+    };
+
+private:
+    std::deque<SnakeBlock> body_parts; // front = head, back = tail
+    int snake_length;
+    SnakeBlock template_block; // template for new blocks
+
+public:
+    // Constructors
+    Snake(int length)
+    {
+        setSnakeLength(length);
+        setTemplateBlock();
+        for (int i = 0; i < length; i++)
+            body_parts.push_back(template_block);
+    }
+
+    Snake()
+    {
+        setSnakeLength(4);
+        setTemplateBlock();
+        body_parts.push_back(template_block);
+    }
+
+    // Set snake length
+    void setSnakeLength(int length)
+    {
+        snake_length = length;
+    }
+
+    // Initialize template block
+    void setTemplateBlock()
+    {
+        template_block.snake_rect.setSize(sf::Vector2f(SNAKE_BODY_LENGHT, SNAKE_BODY_HEIGHT));
+        template_block.block_pos = sf::Vector2f(0, 0);
+    }
+
+    // Add a new head block at front
+    void addHeadBlock(sf::Vector2f pos)
+    {
+        SnakeBlock new_block = template_block;
+        new_block.block_pos = pos;
+        new_block.snake_rect.setPosition(pos);
+        body_parts.push_front(new_block);
+    }
+
+    // Increase length by adding blocks to the tail
+    void increaseLength(int n)
+    {
+        snake_length += n;
+        for (int i = 0; i < n; i++)
+            body_parts.push_back(template_block);
+    }
+
+    // Access head and tail
+    SnakeBlock& getHead()
+    {
+        return body_parts.front(); // head = front
+    }
+
+    SnakeBlock& getTail()
+    {
+        return body_parts.back();  // tail = back
+    }
+
+};
+
+
+
 
 int main()
 {
